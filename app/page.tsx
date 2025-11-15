@@ -1,33 +1,54 @@
-// app/page.tsx (or wherever)
 import TradingWidget from "@/components/TradingWidget";
-import { MARKET_OVERVIEW_WIDGET_CONFIG } from "@/lib/constants";
+import {
+    HEATMAP_WIDGET_CONFIG,
+    MARKET_DATA_WIDGET_CONFIG,
+    MARKET_OVERVIEW_WIDGET_CONFIG,
+    TOP_STORIES_WIDGET_CONFIG
+} from "@/lib/constants";
+// import {sendDailyNewsSummary} from "@/lib/inngest/functions";
 
-export default function Home() {
-  return (
-    <div className="flex min-h-screen home-wrapper p-4">
-      <section className="grid gap-6 w-full grid-cols-1 lg:grid-cols-2">
-        <div>
-          <TradingWidget
-            title="Market Overview"
-            scriptUrl="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"
-            config={MARKET_OVERVIEW_WIDGET_CONFIG}
-            // override height for this instance if needed
-            heightClass="h-64 md:h-96 lg:h-[520px]"
-            className="custom-chart"
-          />
-        </div>
+const Home = () => {
+    const scriptUrl = `https://s3.tradingview.com/external-embedding/embed-widget-`;
 
-        <div>
-          <TradingWidget
-            title="Stock Heatmap"
-            scriptUrl="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js"
-            config={MARKET_OVERVIEW_WIDGET_CONFIG}
-            heightClass="h-56 md:h-80 lg:h-[600px]"
-            className="custom-chart"
-          />
+    return (
+        <div className="flex min-h-screen home-wrapper">
+          <section className="grid w-full gap-8 home-section">
+              <div className="md:col-span-1 xl:col-span-1">
+                  <TradingWidget
+                    title="Market Overview"
+                    scriptUrl={`${scriptUrl}market-overview.js`}
+                    config={MARKET_OVERVIEW_WIDGET_CONFIG}
+                    className="custom-chart"
+                    height={600}
+                  />
+              </div>
+              <div className="md-col-span xl:col-span-2">
+                  <TradingWidget
+                      title="Stock Heatmap"
+                      scriptUrl={`${scriptUrl}stock-heatmap.js`}
+                      config={HEATMAP_WIDGET_CONFIG}
+                      height={600}
+                  />
+              </div>
+          </section>
+            <section className="grid w-full gap-8 home-section">
+                <div className="h-full md:col-span-1 xl:col-span-1">
+                    <TradingWidget
+                        scriptUrl={`${scriptUrl}timeline.js`}
+                        config={TOP_STORIES_WIDGET_CONFIG}
+                        height={600}
+                    />
+                </div>
+                <div className="h-full md:col-span-1 xl:col-span-2">
+                    <TradingWidget
+                        scriptUrl={`${scriptUrl}market-quotes.js`}
+                        config={MARKET_DATA_WIDGET_CONFIG}
+                        height={600}
+                    />
+                </div>
+            </section>
         </div>
-      </section>
-    </div>
-  );
+    )
 }
 
+export default Home;

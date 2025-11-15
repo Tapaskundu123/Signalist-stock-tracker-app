@@ -31,10 +31,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {/* 1. Header is now part of the layout */}
-        <Header />
+        {/* <Header /> */}
 
         {/* 2. Consistent page wrapper (same as your old layout) */}
-        <main className="min-h-screen bg-gray-50">
+        <main className="min-h-screen bg-black">
           <div className="container mx-auto py-10">{children}</div>
         </main>
       </body>
